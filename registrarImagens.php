@@ -7,20 +7,20 @@ class registrarImagens{
         $nomeDoMonumento = $monumento->getNome();
 
        
-        $diretorio = "../arquivos/";
+        $diretorio = "https://monumentoqr.herokuapp.com/arquivos/";
         $diretorio .= "$estado";
         if (!file_exists($diretorio)) {
             mkdir("$diretorio" , 0777,true) or die("erro ao criar diretório1");
         }
 
 
-        $diretorio = "../arquivos/";
+        $diretorio = "https://monumentoqr.herokuapp.com/arquivos/";
         $diretorio .= "$estado/$cidade";
         if (!file_exists($diretorio)) {
             mkdir("$diretorio" , 0777) or die("erro ao criar diretório2");
         }
 
-        $diretorio = "../arquivos/";
+        $diretorio = "https://monumentoqr.herokuapp.com/arquivos/";
         $diretorio .= "$estado/$cidade/$nomeDoMonumento";
         if (!file_exists($diretorio)) {
             mkdir("$diretorio" , 0777) or die("erro ao criar diretório3");
@@ -28,7 +28,7 @@ class registrarImagens{
             die("<a href='../view/cadastrar.php'>Monumento já existente, tente de novo</a><br>");
         }
 
-        $diretorio="arquivos/";
+        $diretorio="https://monumentoqr.herokuapp.com/arquivos/";
 // diretório de destino do arquivo
 define('DEST_DIR', __DIR__ ."/". $diretorio);
  
