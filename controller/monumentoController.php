@@ -184,7 +184,7 @@ public function listarEstadosPorMonumento(){
 public function listarCidadesPorMonumento($id){
     $monumentoDAO = new monumentoDAO;
     $result = $monumentoDAO->listarCidadePorMonumento($id);
-    echo $result;
+    echo json_encode($result);
 }
 
 public function listarDiretorio($idEstado,$idCidade,$nome){
