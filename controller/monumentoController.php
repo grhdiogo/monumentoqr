@@ -188,7 +188,7 @@ public function listarCidadesPorMonumento($id){
 }
 
 public function listarDiretorio($idEstado,$idCidade,$nome){
-    $diretorio = "arquivos/$idEstado/$idCidade/$nome/*.*";
+    $diretorio = "../arquivos/$idEstado/$idCidade/$nome/*.*";
     $glob = glob($diretorio);
     $quantidade = count($glob);
     echo json_encode($quantidade);
