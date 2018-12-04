@@ -22,7 +22,7 @@ $lista = $monumentoDAO->listarEstados();
     </head>
     <body>
         <h1>Cadastrar Novo Monumento</h1>
-        <form action="../controller/monumentoController.php" method="post" enctype="multipart/form-data">
+        <form action="../controller/monumentoController.php" method="post" enctype="multipart/form-data" id="formCadastro">
         <input type="hidden" name="metodo" value="inserir">
         <input type="hidden" name="modo" value="ativo">
         <input type="hidden" name="id" value="0">
@@ -45,7 +45,7 @@ $lista = $monumentoDAO->listarEstados();
 		<label>Descrição: </label><input type="text" name="descricao" required maxlength="1000"/><br>
         <label>Fotos do Local: </label><input type="file" id="imagem" name="arquivos[]" multiple required accept="image/png, image/jpeg">
             <br>
-            <input type="submit" value="Enviar">
+            <button id="btEnviar">Enviar</button>
         </form>
         <a href="home.php">Voltar a Página Inicial</a>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -68,11 +68,11 @@ $lista = $monumentoDAO->listarEstados();
 				}
 			});
 		});
-        $("#imagem").on("change", function() {
+        $("#btEnviar").click(function(){
          if($("#imagem")[0].files.length != 5) {
                    alert("You can select only 2 images");
          } else {
-               $("#imageUploadForm").submit();
+               $("formCadastro").submit();
          }
     });
         </script>
