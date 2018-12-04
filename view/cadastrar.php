@@ -70,8 +70,8 @@ $lista = $monumentoDAO->listarEstados();
 		});
         $("#btEnviar").click(function(){
          if($("#imagem")[0].files.length != 5) {
-                   alert("You can select only 2 images");
-         } else {
+                   alert("Selecione 5 Imagens");
+         } else if($("#imagem")[0].files.length == 5) {
                $("formCadastro").submit();
          }
     });
