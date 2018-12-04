@@ -2,7 +2,7 @@
 include_once '../dao/conn.php'; 
 include_once '../model/monumento.php';
 include_once '../dao/monumentoDAO.php'; 
-include_once '../registrarImagens.php';
+include_once 'imagensController.php'; 
 
 $controller = new monumentoController;
 if (!empty($_POST)) {
@@ -91,13 +91,12 @@ public function postInfo(){
 
 
 public function inserir(){
-$idEstado = $_POST['estado'];
 $monumento = $this->postInfo();
 $arquivos = $_FILES['arquivos'];
 $monumentoDAO = new monumentoDAO;
-$imagem = new registrarImagens;
+$imagem = new imagensController;
 
-    $imagem->registra($arquivos,$monumento,$idEstado);
+    $imagem->registra($arquivos,$monumento->getId());
     $monumentoDAO->inserirDAO($monumento);
     echo "Monumento cadastrado com sucesso!";
     echo "<a href='../view/cadastrar.php'>Clique aqui para realizar um novo cadastro</a><br>";
@@ -197,6 +196,12 @@ public function listarDiretorio($idEstado,$idCidade,$nome){
 public function listarMonumentoPorId($id){
     $monumentoDAO = new monumentoDAO;
     $result = $monumentoDAO->listarMonumento($id);
+    echo json_encode($result);
+}
+
+public function verificarExistencia($id){
+    $monumentoDAO = new monumentoDAO;
+    $result = $monumentoDAO->verificarExistencia($id);
     echo json_encode($result);
 }
 
