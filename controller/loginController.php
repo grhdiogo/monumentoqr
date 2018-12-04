@@ -36,7 +36,7 @@ if($result == true ) {
 }else{
     unset ($_SESSION['usuario']);
     unset ($_SESSION['senha']);
-    header('location:../index.html');
+    header('location:../index.php');
     echo"<p>Login ou Senha Invalidos</p>";
 } 
 }//fim do logar
@@ -46,7 +46,7 @@ if($result == true ) {
         if((!isset ($_SESSION['usuario']) == true) and (!isset ($_SESSION['senha']) == true)){
         unset($_SESSION['usuario']);
         unset($_SESSION['senha']);
-        header('location:../index.html');
+        header('location:../index.php');
         }
     }//fim do verificarSessao();
 
