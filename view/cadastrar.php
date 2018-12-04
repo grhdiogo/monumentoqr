@@ -43,7 +43,7 @@ $lista = $monumentoDAO->listarEstados();
         <label>Rua: </label><input type="text" name="rua" required maxlength="50"/><br>
         <label>Número: </label><input type="number" name="numero" maxlength="6" value="0"/><br>
 		<label>Descrição: </label><input type="text" name="descricao" required maxlength="1000"/><br>
-        <label>Fotos do Local: </label><input type="file" name="arquivos[]" multiple required accept="image/png, image/jpeg">
+        <label>Fotos do Local: </label><input type="file" id="imagem" name="arquivos[]" multiple required accept="image/png, image/jpeg">
             <br>
             <input type="submit" value="Enviar">
         </form>
@@ -68,6 +68,13 @@ $lista = $monumentoDAO->listarEstados();
 				}
 			});
 		});
+        $("#imagem").on("change", function() {
+         if($("#imagem")[0].files.length != 5) {
+                   alert("You can select only 2 images");
+         } else {
+               $("#imageUploadForm").submit();
+         }
+    });
         </script>
     </body>
 </html>
