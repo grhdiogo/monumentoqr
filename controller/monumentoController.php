@@ -1,6 +1,7 @@
 <?php
 include_once '../dao/conn.php'; 
 include_once '../model/monumento.php';
+include_once '../model/imagem.php';
 include_once '../dao/monumentoDAO.php';
 include_once '../dao/imagemDao.php';  
 
@@ -99,7 +100,7 @@ console.log("chegou aqui");
 
 $arquivos = $_FILES['arquivos'];
     $total = count($arquivos['name']);
-    
+
     for ($i = 0; $i < $total; $i++){
         
         $imagem->setNome($arquivos['name'][$i]);
