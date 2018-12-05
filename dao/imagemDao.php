@@ -7,14 +7,14 @@ class imagemDao{
 
 public function inserir($id,Imagem $imagem){
     try{
-        $sql = "INSERT INTO imagem (nome_imagem,tamanho_imagem,tipo_imagem,imagem,id_monumento) 
+        $sql = "INSERT INTO imagens (nome_imagem,tamanho_imagem,tipo_imagem,imagem,id_monumento) 
         VALUES(:nome,:tamanho,:tipo,:imagem,:id_monumento)";
     
         $stmt=Database::getConnection()->prepare($sql);
     
         $stmt->bindValue(':nome', $imagem->getNome(), PDO::PARAM_STR);
         $stmt->bindValue(':tamanho', $imagem->getTamanho(), PDO::PARAM_STR);
-        $stmt->bindValue(':tipo', $imagem->getTipo(), PDO::PARAM_INT);
+        $stmt->bindValue(':tipo', $imagem->getTipo(), PDO::PARAM_STR);
         $stmt->bindValue(':imagem', $imagem->getImagem(), PDO::PARAM_STR);
         $stmt->bindValue(':id_monumento', $imagem->getId_Monumento(), PDO::PARAM_INT);
     
