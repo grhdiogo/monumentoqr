@@ -12,8 +12,6 @@ class registrarImagens{
  
     // total de arquivos enviados
     $total = count($arquivos['name']);
- 
-
     for ($i = 0; $i < $total; $i++){
         
         $imagem->setNome($arquivos['name'][$i]);

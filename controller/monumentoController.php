@@ -95,8 +95,20 @@ $monumento = $this->postInfo();
 $arquivos = $_FILES['arquivos'];
 $monumentoDAO = new monumentoDAO;
 $imagem = new imagensController;
+$imagemDao = new imagemDao;
 
-    $imagem->registra($arquivos,$monumento->getId());
+    $total = count($arquivos['name']);
+    for ($i = 0; $i < $total; $i++){
+        
+        $imagem->setNome($arquivos['name'][$i]);
+        $imagem->setImagem($arquivos['tmp_name'][$i]);
+        $imagem->setTamanho($arquivos['size'][$i]);
+        $imagem->setTipo($arquivos['type'][$i]);
+        $imagem->setId_Monumento($monumento->getId());
+        // - $arquivos['error'][$i]
+        $imagemDao->inserir($imagem);
+
+    }//fim do for
     $monumentoDAO->inserirDAO($monumento);
     echo "Monumento cadastrado com sucesso!";
     echo "<a href='../view/cadastrar.php'>Clique aqui para realizar um novo cadastro</a><br>";
