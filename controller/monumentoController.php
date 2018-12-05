@@ -1,8 +1,9 @@
 <?php
 include_once '../dao/conn.php'; 
 include_once '../model/monumento.php';
-include_once '../dao/monumentoDAO.php'; 
-include_once 'imagensController.php'; 
+include_once '../dao/monumentoDAO.php';
+include_once '../dao/imagemDao.php';  
+
 
 $controller = new monumentoController;
 if (!empty($_POST)) {
@@ -92,12 +93,13 @@ public function postInfo(){
 
 public function inserir(){
 $monumento = $this->postInfo();
-$arquivos = $_FILES['arquivos'];
 $monumentoDAO = new monumentoDAO;
-$imagem = new imagensController;
 $imagemDao = new imagemDao;
+console.log("chegou aqui");
 
+$arquivos = $_FILES['arquivos'];
     $total = count($arquivos['name']);
+    
     for ($i = 0; $i < $total; $i++){
         
         $imagem->setNome($arquivos['name'][$i]);
@@ -107,9 +109,12 @@ $imagemDao = new imagemDao;
         $imagem->setId_Monumento($monumento->getId());
         // - $arquivos['error'][$i]
         $imagemDao->inserir($imagem);
+        console.log("entrou");
 
     }//fim do for
+    console.log("chegou aqui dois");
     $monumentoDAO->inserirDAO($monumento);
+    console.log("chegou aqui 3");
     echo "Monumento cadastrado com sucesso!";
     echo "<a href='../view/cadastrar.php'>Clique aqui para realizar um novo cadastro</a><br>";
 
