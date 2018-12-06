@@ -14,7 +14,7 @@ class Imagem{
     function setTipo($tipo) { $this->tipo = $tipo; }
     function getTipo() { return $this->tipo; }
     function setTamanho($tamanho) { $this->tamanho = $tamanho; }
-    function getTamanho() { return $this->v; } 
+    function getTamanho() { return $this->tamanho; } 
     function setImagem($imagem) { $this->imagem = $imagem; }
     function getImagem() { return $this->imagem; } 
     function setId_Monumento($id_monumento) { $this->id_monumento = $id_monumento; }

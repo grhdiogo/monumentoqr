@@ -5,7 +5,7 @@ include_once '../model/imagem.php';
 
 class imagemDao{
 
-public function inserir($id,Imagem $imagem){
+public function inserir(Imagem $imagem){
     try{
         $sql = "INSERT INTO imagens (nome_imagem,tamanho_imagem,tipo_imagem,imagem,id_monumento) 
         VALUES(:nome,:tamanho,:tipo,:imagem,:id_monumento)";

@@ -162,8 +162,9 @@ public function listarCidadePorMonumento($id){
     return $result;
 }
 public function verificarExistencia($id){
-    $sql = "SELECT EXISTS(SELECT * FROM monumento WHERE id = $id)";
+    $sql = "SELECT EXISTS(SELECT id FROM monumento WHERE id =:id)";
     $stmt=Database::getConnection()->prepare($sql);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
 
     for ($i=0; $x =  $stmt->fetch(PDO::FETCH_OBJ) ; $i++) { 

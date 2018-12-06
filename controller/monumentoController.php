@@ -67,6 +67,10 @@ if (!empty($_GET)&!empty($_GET['subjeto'])) {
         $id = $_GET['id'];
         $controller->invalidar($id);
     }
+    if($subjeto == "verificar"){
+        $id = $_GET['id'];
+        $controller->verificarExistencia($id);
+    }
 }
 
 
@@ -96,26 +100,25 @@ public function inserir(){
 $monumento = $this->postInfo();
 $monumentoDAO = new monumentoDAO;
 $imagemDao = new imagemDao;
-console.log("chegou aqui");
+$imagem = new Imagem;
 
-$arquivos = $_FILES['arquivos'];
+    $arquivos = $_FILES['arquivos'];
     $total = count($arquivos['name']);
+    $monumentoDAO->inserirDAO($monumento);
+    $idDoMonumento = $monumentoDAO->pesquisarMonumentos("nome",$monumento->getNome());
 
     for ($i = 0; $i < $total; $i++){
         
-        $imagem->setNome($arquivos['name'][$i]);
+        $imagem->setNome("Imagem "+$i);
         $imagem->setImagem($arquivos['tmp_name'][$i]);
         $imagem->setTamanho($arquivos['size'][$i]);
         $imagem->setTipo($arquivos['type'][$i]);
-        $imagem->setId_Monumento($monumento->getId());
+        $imagem->setId_Monumento($idDoMonumento->id);
         // - $arquivos['error'][$i]
         $imagemDao->inserir($imagem);
-        console.log("entrou");
 
     }//fim do for
-    console.log("chegou aqui dois");
-    $monumentoDAO->inserirDAO($monumento);
-    console.log("chegou aqui 3");
+    
     echo "Monumento cadastrado com sucesso!";
     echo "<a href='../view/cadastrar.php'>Clique aqui para realizar um novo cadastro</a><br>";
 
