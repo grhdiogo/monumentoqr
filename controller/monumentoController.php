@@ -223,7 +223,12 @@ public function listarMonumentoPorId($id){
 public function verificarExistencia($id){
     $monumentoDAO = new monumentoDAO;
     $result = $monumentoDAO->verificarExistencia($id);
-    echo json_encode($result);
+    if($result==true){
+        echo json_encode(1);
+    }else{
+        echo json_encode(0);
+    }
+    
 }
 
 }//fim da classe
