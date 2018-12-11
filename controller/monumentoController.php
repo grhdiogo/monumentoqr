@@ -71,6 +71,15 @@ if (!empty($_GET)&!empty($_GET['subjeto'])) {
         $id = $_GET['id'];
         $controller->verificarExistencia($id);
     }
+    if($subjeto == "recuperarImagem"){
+        $id = $_GET['id'];
+        $controller->recuperarImagem($id);
+    }
+    if($subjeto == "teste"){
+        $monumentoDAO = new monumentoDAO;
+        //$id = $_GET['id'];
+        $idDoMonumento = $monumentoDAO->pegarUltimoId();
+    }
 }
 
 
@@ -105,19 +114,22 @@ $imagem = new Imagem;
     $arquivos = $_FILES['arquivos'];
     $total = count($arquivos['name']);
     $monumentoDAO->inserirDAO($monumento);
-    $idDoMonumento = $monumentoDAO->pesquisarMonumentos("nome",$monumento->getNome());
+    $idDoMonumento = $monumentoDAO->pegarUltimoId();
 
     for ($i = 0; $i < $total; $i++){
-        
+        $conteudo = file_get_contents($arquivos['tmp_name'][$i]);
+
+
         $imagem->setNome("Imagem "+$i);
-        $imagem->setImagem($arquivos['tmp_name'][$i]);
+        $imagem->setImagem($conteudo);
         $imagem->setTamanho($arquivos['size'][$i]);
         $imagem->setTipo($arquivos['type'][$i]);
-        $imagem->setId_Monumento($idDoMonumento->id);
+        $imagem->setId_Monumento($idDoMonumento);
         // - $arquivos['error'][$i]
         $imagemDao->inserir($imagem);
 
     }//fim do for
+    
     
     echo "Monumento cadastrado com sucesso!";
     echo "<a href='../view/cadastrar.php'>Clique aqui para realizar um novo cadastro</a><br>";
@@ -207,12 +219,6 @@ public function listarCidadesPorMonumento($id){
     echo json_encode($result);
 }
 
-public function listarDiretorio($idEstado,$idCidade,$nome){
-    $diretorio = "https://monumentoqr.herokuapp.com/arquivos/$idEstado/$idCidade/$nome/*.*";
-    $glob = glob($diretorio);
-    $quantidade = count($glob);
-    echo json_encode($quantidade);
-}
 
 public function listarMonumentoPorId($id){
     $monumentoDAO = new monumentoDAO;
@@ -228,6 +234,13 @@ public function verificarExistencia($id){
     }else{
         echo json_encode(0);
     }
+        
+}
+
+public function recuperarImagem($id){
+    $monumentoDAO = new monumentoDAO;
+    $result = $monumentoDAO->recuperarImagem($id);
+    echo json_encode($result);
     
 }
 

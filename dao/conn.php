@@ -10,10 +10,10 @@ class Database {
     private $connection;
     
     private function __construct() {
-        $db_host = "sql10.freemysqlhosting.net";
-        $db_nome = "sql10267193";
-        $db_usuario = "sql10267193";
-        $db_senha = "5tRvScs4cH";
+        $db_host = "localhost";
+        $db_nome = "projeto";
+        $db_usuario = "root";
+        $db_senha = "";
         $db_driver = "mysql";
         
         try

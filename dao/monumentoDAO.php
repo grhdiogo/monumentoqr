@@ -124,7 +124,7 @@ public function listarMonumentosPorCidade($id){
     $sql = "SELECT * FROM monumento MO
     INNER JOIN tb_cidades CI ON MO.id_cidade = CI.idCidade
     INNER JOIN tb_estados ES ON CI.estado = ES.idEstado
-    WHERE id_cidade = $id";
+    WHERE id_cidade = $id AND modo = 'ativo'";
     $stmt=Database::getConnection()->prepare($sql);
     $stmt->execute();
 
@@ -162,14 +162,37 @@ public function listarCidadePorMonumento($id){
     return $result;
 }
 public function verificarExistencia($id){
-    $sql = "SELECT id FROM monumento WHERE id =:id ";
+    $sql = "SELECT id FROM monumento WHERE id = $id ";
     $stmt=Database::getConnection()->prepare($sql);
-    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $result =   $stmt->fetch(PDO::FETCH_OBJ); 
+    return $result;
+}
+
+public function pegarUltimoId(){
+    $sql = "SELECT id FROM monumento order by id DESC limit 1";
+    $stmt=Database::getConnection()->prepare($sql);
     $stmt->execute();
 
     for ($i=0; $x =  $stmt->fetch(PDO::FETCH_OBJ) ; $i++) { 
-     $result[$i]=$x;
+     $result[$i]=$x->id;
     }
+    return $result[0];
+}
+public function recuperarImagem($id){
+    $sql = "SELECT * FROM imagens WHERE id_monumento =$id";
+    $stmt=Database::getConnection()->prepare($sql);
+    $stmt->execute();
+
+    
+    for ($i=0; $x =  $stmt->fetch(PDO::FETCH_OBJ) ; $i++) { 
+    $result[$i]=$x;
+    $result[$i]->imagem = base64_encode($x->imagem);
+    //echo '<img src="data:'.$x->tipo_imagem.';base64,'.base64_encode($x->imagem).'" height="100" width="100"/>';
+    }
+    
+     
     return $result;
 }
 
